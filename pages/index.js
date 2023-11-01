@@ -7,6 +7,9 @@ export default function HomePage() {
   const [account, setAccount] = useState(undefined);
   const [atm, setATM] = useState(undefined);
   const [balance, setBalance] = useState(undefined);
+  const [amount, setAmount] = useState(0);
+
+  let showBalance = true;
 
   const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
   const atmABI = atm_abi.abi;
@@ -54,14 +57,27 @@ export default function HomePage() {
   }
 
   const getBalance = async() => {
-    if (atm) {
+    if (atm && showBalance) {
       setBalance((await atm.getBalance()).toNumber());
     }
+    else{
+      setBalance("--");
+    }
+  }
+
+  const changeShowBalance = () => {
+    if (showBalance){
+      showBalance = false;
+      getBalance();
+      return;
+    }
+    showBalance = true;
+    getBalance();
   }
 
   const deposit = async() => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.deposit(amount);
       await tx.wait()
       getBalance();
     }
@@ -69,11 +85,19 @@ export default function HomePage() {
 
   const withdraw = async() => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.withdraw(amount);
       await tx.wait()
       getBalance();
     }
   }
+
+  const handleAmountChange = (event) => {
+    const value = event.target.value;
+    // Ensure that the input only accepts valid decimal values
+    if (!isNaN(value)) {
+      setAmount(parseFloat(value));
+    }
+  };
 
   const initUser = () => {
     // Check to see if user has Metamask
@@ -94,9 +118,19 @@ export default function HomePage() {
       <div>
         <p>Your Account: {account}</p>
         <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <button onClick={deposit}>Deposit ETH</button>
+        <button onClick={withdraw}>Withdraw ETH</button>
+        <label>
+        Amount:
+        <input
+          type="number"
+          value={amount}
+          onChange={handleAmountChange}
+        />
+      </label>
+      <button onClick={changeShowBalance}>Show/Hide Balance</button>
       </div>
+
     )
   }
 
