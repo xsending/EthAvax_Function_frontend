@@ -17,6 +17,7 @@ To run this program, you can clone this repository into your local machine, or y
 5. Back in the first terminal, type npm run dev to launch the front-end.
 
 After this, the project will be running on your localhost. Typically at http://localhost:3000/
+
 Make sure to check whether your port 8545 is made public, and make sure to also set up your MetaMask by adding your localhost network as a custom network within MetaMask.
 
 ## Authors
