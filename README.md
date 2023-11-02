@@ -9,7 +9,7 @@ This program simulates an ATM where you can withdraw and deposit your currency b
 ## Getting Started
 
 ### Executing program
-To run this program, you can clone this repository into your local machine, or you can use Gitpod (https://www.gitpod.io) to run the program online. ONce you're done cloning, you can set up the localhost website by following these steps:
+To run this program, you can clone this repository into your local machine, or you can use Gitpod (https://www.gitpod.io) to run the program online. Once you're done cloning, you can set up the localhost website by following these steps:
 1. Inside the project directory, in the terminal type: npm i
 2. Open two additional terminals in your VS code or Gitpod
 3. In the second terminal type: npx hardhat node
